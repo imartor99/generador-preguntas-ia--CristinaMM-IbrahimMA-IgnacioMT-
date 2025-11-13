@@ -4,9 +4,9 @@
 | :--- | :--- | :--- | :---: |
 | **1. Configuración Inicial del Proyecto** | | | |
 | **1.1 Inicialización (Común)** | | | |
-| ☐ Crear carpeta `generador-preguntas-ia-[tu-nombre-iniciales]` | | Común |  |
-| ☐ Inicializar repositorio Git (`git init`) | | Común |  |
-| ☐ Crear rama de trabajo (`git checkout -b hito2/desarrollo-ia`) | | Común |  |
+| ☐ Crear carpeta `generador-preguntas-ia-[tu-nombre-iniciales]` | | Común | ✅ |
+| ☐ Inicializar repositorio Git (`git init`) | | Común | ✅ |
+| ☐ Crear rama de trabajo (`git checkout -b hito2/desarrollo-ia`) | | Común | ✅ |
 | **1.2 Backend - Dependencias** | | **Nacho** | |
 | ☐ Crear la carpeta `backend/` | | Nacho | |
 | ☐ Crear `package.json` en `backend/` y completar datos | | Nacho | |
@@ -15,13 +15,13 @@
 | ☐ Añadir `"type": "module"` a `package.json` | | Nacho | |
 | ☐ Configurar *scripts* `dev` y `start` en `package.json` | | Nacho | |
 | **1.3 Archivos de Configuración** | | **Cristina** | |
-| ☐ Crear `.env` y `.env.example` en la raíz del proyecto | | Cristina | |
-| ☐ Crear `.gitignore` en la raíz (excluir `.env`, `node_modules`, `preguntas.db`) | | Cristina | |
+| ☐ Crear `.env` y `.env.example` en la raíz del proyecto | | Cristina | ✅ |
+| ☐ Crear `.gitignore` en la raíz (excluir `.env`, `node_modules`, `preguntas.db`) | | Cristina | ✅ |
 | **1.4 Frontend - Estructura Básica** | | **Cristina** | |
-| ☐ Crear carpeta `frontend/` | | Cristina |  |
-| ☐ Crear `frontend/index.html` (estructura básica con `<div id="app">`) | | Cristina |  |
-| ☐ Crear `frontend/style.css` y `frontend/main.js` vacíos | | Cristina |  |
-| ☐ Linkar `style.css` y `main.js` en `index.html` | | Cristina |  |
+| ☐ Crear carpeta `frontend/` | | Cristina | ✅ |
+| ☐ Crear `frontend/index.html` (estructura básica con `<div id="app">`) | | Cristina | ✅ |
+| ☐ Crear `frontend/style.css` y `frontend/main.js` vacíos | | Cristina | ✅ |
+| ☐ Linkar `style.css` y `main.js` en `index.html` | | Cristina | ✅ |
 | **2. Backend - Implementación** | | | |
 | **2.1 Base de Datos** | | **Ibra** | |
 | ☐ Crear carpeta `backend/db/` | | Ibra | |
