@@ -143,7 +143,7 @@ router.delete("/preguntas/:id", async (req, res) => {
   }
 });
 
-// DELETE /api/preguntas/tema/:tema: Limpia todas las preguntas de un tema
+// DELETE /api/preguntas/tema/:tema: Limpia todas las preguntas de un tema.
 router.delete("/preguntas/tema/:tema", async (req, res) => {
   try {
     const { tema } = req.params;
