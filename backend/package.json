@@ -1,18 +1,12 @@
 {
   "name": "backend",
   "version": "1.0.0",
-<<<<<<< HEAD
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-=======
   "description": "Backend para el Generador de Preguntas Inteligente",
-  "main": "server.js",
-  "type": "module",
+  "main": "server.js", 
+  "type": "module", 
   "scripts": {
     "dev": "nodemon server.js", 
     "start": "node server.js", 
->>>>>>> 661af4e624e413a859477d90b2632363731e8430
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
