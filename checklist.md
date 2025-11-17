@@ -36,17 +36,17 @@
 | ☐ Función `limpiarTema(tema)`: Eliminar todas las preguntas de un tema | | Ibra | |
 | ☐ Manejo de errores: Si Ollama no responde y *Timeout* (> 60s) | | Ibra | |
 | **2.4 Endpoints de la API (*Routes*)** | | **Nacho** | |
-| ☐ Implementar `backend/routes.js` e importar Express Router | | Nacho | |
-| ☐ `POST /api/generate` | | Nacho | |
-| ☐ `GET /api/preguntas` (con query param `?tema` opcional) | | Nacho | |
-| ☐ `GET /api/preguntas/:id` | | Nacho | |
-| ☐ `DELETE /api/preguntas/:id` | | Nacho | |
-| ☐ `DELETE /api/preguntas/tema/:tema` | | Nacho | |
-| ☐ `GET /api/temas` | | Nacho | |
-| ☐ `GET /api/health` (Estado servidor y Ollama) | | Nacho | |
-| ☐ Asegurar Validación de entrada, `try-catch` y códigos HTTP adecuados | | Nacho | |
+| ☐ Implementar `backend/routes.js` e importar Express Router | | Nacho | ✅ |
+| ☐ `POST /api/generate` | | Nacho | ✅ |
+| ☐ `GET /api/preguntas` (con query param `?tema` opcional) | | Nacho | ✅ |
+| ☐ `GET /api/preguntas/:id` | | Nacho | ✅ |
+| ☐ `DELETE /api/preguntas/:id` | | Nacho | ✅ |
+| ☐ `DELETE /api/preguntas/tema/:tema` | | Nacho | ✅ |
+| ☐ `GET /api/temas` | | Nacho | ✅ |
+| ☐ `GET /api/health` (Estado servidor y Ollama) | | Nacho | ✅ |
+| ☐ Asegurar Validación de entrada, `try-catch` y códigos HTTP adecuados | | Nacho | ✅ |
 | **2.5 Servidor Express (*Server*)** | | **Nacho** | |
-| ☐ Implementar `backend/server.js` (cargar `.env`, configurar CORS, montar rutas en `/api`, servir estáticos) | | Nacho | |
+| ☐ Implementar `backend/server.js` (cargar `.env`, configurar CORS, montar rutas en `/api`, servir estáticos) | | Nacho | ✅ |
 | **3. Frontend - JavaScript Vanilla** | | | |
 | **3.1 Estructura HTML** | | **Cristina** | |
 | ☐ Completar `frontend/index.html` con selector de tema, inputs, botones, contenedor, carga | | Cristina | |
