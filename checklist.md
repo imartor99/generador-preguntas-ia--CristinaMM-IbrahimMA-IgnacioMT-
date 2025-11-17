@@ -7,13 +7,13 @@
 | ☐ Crear carpeta `generador-preguntas-ia-[tu-nombre-iniciales]` | | Común | ✅ |
 | ☐ Inicializar repositorio Git (`git init`) | | Común | ✅ |
 | ☐ Crear rama de trabajo (`git checkout -b hito2/desarrollo-ia`) | | Común | ✅ |
-| **1.2 Backend - Dependencias** | | **Nacho** | |
-| ☐ Crear la carpeta `backend/` | | Nacho | |
-| ☐ Crear `package.json` en `backend/` y completar datos | | Nacho | |
-| ☐ Instalar dependencias: `npm install express dotenv better-sqlite3 cors` | | Nacho | |
-| ☐ Instalar dependencias de desarrollo: `npm install --save-dev nodemon` | | Nacho | |
-| ☐ Añadir `"type": "module"` a `package.json` | | Nacho | |
-| ☐ Configurar *scripts* `dev` y `start` en `package.json` | | Nacho | |
+| **1.2 Backend - Dependencias** | | **Nacho** | ✅ |
+| ☐ Crear la carpeta `backend/` | | Nacho | ✅ |
+| ☐ Crear `package.json` en `backend/` y completar datos | | Nacho | ✅ |
+| ☐ Instalar dependencias: `npm install express dotenv better-sqlite3 cors` | | Nacho | ✅ |
+| ☐ Instalar dependencias de desarrollo: `npm install --save-dev nodemon` | | Nacho | ✅ |
+| ☐ Añadir `"type": "module"` a `package.json` | | Nacho | ✅ |
+| ☐ Configurar *scripts* `dev` y `start` en `package.json` | | Nacho | ✅ |
 | **1.3 Archivos de Configuración** | | **Cristina** | |
 | ☐ Crear `.env` y `.env.example` en la raíz del proyecto | | Cristina | ✅ |
 | ☐ Crear `.gitignore` en la raíz (excluir `.env`, `node_modules`, `preguntas.db`) | | Cristina | ✅ |
