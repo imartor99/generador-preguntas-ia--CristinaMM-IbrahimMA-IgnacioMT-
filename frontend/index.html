@@ -9,19 +9,21 @@
 </head>
 
 <body>
-    <script type="module" src="main.js"></script>
+
 
     <div id="app">
 
         <h1>Generador de Preguntas</h1>
 
+        <!-- Contenedor para el mensaje del sistema (añadido en JS, pero importante para CSS) -->
+        <div id="mensajeSistema" style="display: none;"></div>
+
         <div>
+            <!-- Selector de tema (dropdown con los 3 temas) -->
             <label for="selectorTemas">Selecciona un tema:</label>
             <select id="selectorTemas" name="opciones">
+                <!-- El JS debe rellenar esto, pero se deja el placeholder -->
                 <option value="" disabled selected>Selecciona un tema</option>
-                <option value="javascript">JavaScript</option>
-                <option value="seguridad_web">Seguridad Web (OWASP)</option>
-                <option value="historia_ia">Historia de la IA</option>
             </select>
         </div>
         <br>
@@ -31,7 +33,7 @@
 
         <div>
             <label for="numPreguntas">Número de preguntas (1-5):</label>
-            <input type="number" id="numPreguntas" min="1" max="5" value="3">
+            <input type="number" id="numPreguntas" min="1" max="5" value="3" required>
         </div>
         <br>
 
@@ -45,9 +47,10 @@
         <br>
 
 
-        <!-- Indicador de carga (texto "Generando...", intentaré cambiarlo por un spinner) -->
+        <!-- Indicador de carga spinner) -->
         <div id="loadingIndicator" style="display: none;">
-            Generando...
+            <div class="spinner"></div>
+            <span>Generando preguntas...</span>
         </div>
 
 
@@ -60,7 +63,7 @@
 
 
 
-
+        <script type="module" src="main.js"></script>
 
     </div>
 </body>
