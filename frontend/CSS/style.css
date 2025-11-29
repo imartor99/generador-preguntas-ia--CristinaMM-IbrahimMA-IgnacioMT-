@@ -1,18 +1,19 @@
 /* --- 1. Variables y Estilos Generales (Futurista/Dark Mode) --- */
 :root {
-    --color-primary: #00e0ff; /* Cian brillante (Neón) */
+    --color-primary: #ffe100; /* Amarillo brillante (Neón) */
     --color-secondary: #4a5468; /* Gris oscuro para deshabilitados */
-    --color-background: #1a1a2e; /* Fondo muy oscuro (Noche Estelar) */
     --color-card-bg: #272740; /* Fondo de tarjetas con profundidad */
     --color-text: #e0e0e0; /* Texto claro */
-    --color-error: #ff5277; /* Rojo Neón */
+    --color-error: #d400ff; /* Morado Neón */
     --color-success: #39ff14; /* Verde Neón */
     --font-clean: 'Consolas', 'Courier New', monospace;
-    --shadow-neon: 0 0 10px rgba(0, 224, 255, 0.6); /* Sombra Neón */
+    --shadow-neon: 0 0 10px #ffef75c1; /* Sombra Neón */
 }
 
 body {
-    background-color: var(--color-background);
+    background-image: url('img/noche-estrellas.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
     font-family: var(--font-clean);
     color: var(--color-text);
     margin: 0;
@@ -97,7 +98,7 @@ button {
 #btnGenerar {
     background-color: transparent;
     color: var(--color-primary);
-    box-shadow: 0 0 5px rgba(0, 224, 255, 0.4);
+    box-shadow: 0 0 5px #ffe100;
 }
 
 #btnGenerar:hover:not(:disabled) {
