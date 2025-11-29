@@ -98,7 +98,7 @@ export async function generarPreguntas({ temaId, numPreguntas = 3, subtema = 'ge
     return preguntasGuardadas;
 
   } catch (error) {
-    // 6. (Requisito) Manejo de Errores (Timeout y conexión)
+    // 6. Manejo de Errores si ollama no responde (Timeout y conexión)
     if (error.name === 'AbortError') {
       console.error('[Ollama Service] Error: Timeout de 60s alcanzado.');
       throw new Error('La solicitud a Ollama ha tardado demasiado (timeout 60s).');

@@ -81,4 +81,3 @@
 | ☐ Crear Pull Request (PR) con título y descripción requeridos | | Común | |
 | ☐ **Verificar que el `.env` NO está versionado** (solo `.env.example`) | | Común | |
 | ☐ Exposición en clase del proyecto funcionando | | Común | |
-

@@ -1,0 +1,14 @@
+PORT=3003
+
+HOST=0.0.0.0
+
+# configuración para desarrollo
+NODE_ENV=developtment
+
+SERVER_URL=http://localhost:3003
+
+# configuración para conexión a API de IA (opcional - para extensiones)
+AI_API_URL=http://localhost:11434
+AI_MODEL=mistral
+
+
