@@ -91,8 +91,8 @@ async function cargarTemas() {
         // Rellenar selector dinámicamente
         temas.forEach(tema => {
             const option = document.createElement('option');
-            // Se asume que los objetos de tema tienen 'key' y 'nombre'
-            option.value = tema.key;
+            // Se asume que los objetos de tema tienen 'id' y 'nombre'
+            option.value = tema.id;
             option.textContent = tema.nombre;
             TEMA_SELECT.appendChild(option);
         });
@@ -133,12 +133,24 @@ function mostrarPreguntas(preguntas) {
         card.dataset.id = pregunta.id; // Almacenar el ID para eliminación
 
         let opcionesHTML = '';
-        // Asumiendo que las opciones vienen en un array llamado 'opciones'
-        if (pregunta.opciones && pregunta.opciones.length > 0) {
-            opcionesHTML = '<p>Opciones:</p><ol>';
-            pregunta.opciones.forEach(op => {
-                opcionesHTML += `<li>${op}</li>`;
-            });
+        // Asumiendo que las opciones vienen en un objeto (a, b, c, d) o array
+        if (pregunta.opciones) {
+            opcionesHTML = '<p>Opciones:</p><ol type="a">';
+            
+            // Si es un objeto (lo más probable según prompts.js)
+            if (typeof pregunta.opciones === 'object' && !Array.isArray(pregunta.opciones)) {
+                for (const key in pregunta.opciones) {
+                    if (Object.prototype.hasOwnProperty.call(pregunta.opciones, key)) {
+                         opcionesHTML += `<li><strong>${key})</strong> ${pregunta.opciones[key]}</li>`;
+                    }
+                }
+            } 
+            // Si por alguna razón llega como array
+            else if (Array.isArray(pregunta.opciones)) {
+                 pregunta.opciones.forEach(op => {
+                    opcionesHTML += `<li>${op}</li>`;
+                });
+            }
             opcionesHTML += '</ol>';
         }
 
