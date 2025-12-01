@@ -127,50 +127,91 @@ function mostrarPreguntas(preguntas) {
 
     preguntas.forEach((pregunta, index) => {
         const card = document.createElement('div');
-        // Usamos <hr> para separar las tarjetas sin usar márgenes CSS
         card.innerHTML += '<hr>'; 
-        
-        card.dataset.id = pregunta.id; // Almacenar el ID para eliminación
-
-        let opcionesHTML = '';
-        // Asumiendo que las opciones vienen en un objeto (a, b, c, d) o array
-        if (pregunta.opciones) {
-            opcionesHTML = '<p>Opciones:</p><ol type="a">';
-            
-            // Si es un objeto (lo más probable según prompts.js)
-            if (typeof pregunta.opciones === 'object' && !Array.isArray(pregunta.opciones)) {
-                for (const key in pregunta.opciones) {
-                    if (Object.prototype.hasOwnProperty.call(pregunta.opciones, key)) {
-                         opcionesHTML += `<li><strong>${key})</strong> ${pregunta.opciones[key]}</li>`;
-                    }
-                }
-            } 
-            // Si por alguna razón llega como array
-            else if (Array.isArray(pregunta.opciones)) {
-                 pregunta.opciones.forEach(op => {
-                    opcionesHTML += `<li>${op}</li>`;
-                });
-            }
-            opcionesHTML += '</ol>';
-        }
+        card.dataset.id = pregunta.id;
 
         const titulo = document.createElement('h4');
         titulo.textContent = `Pregunta #${index + 1}`;
         
         const textoPregunta = document.createElement('p');
-        textoPregunta.textContent = pregunta.texto || pregunta.pregunta; // Usar 'texto' o 'pregunta'
+        textoPregunta.textContent = pregunta.texto || pregunta.pregunta;
 
         const btnEliminar = document.createElement('button');
         btnEliminar.textContent = 'Eliminar';
+        btnEliminar.style.float = 'right'; // Simple style
         btnEliminar.onclick = () => eliminarPregunta(pregunta.id);
 
-        card.appendChild(titulo);
         card.appendChild(btnEliminar);
+        card.appendChild(titulo);
         card.appendChild(textoPregunta);
-        if (opcionesHTML) {
-             card.innerHTML += opcionesHTML;
-        }
 
+        // Contenedor de opciones
+        const opcionesContainer = document.createElement('div');
+        opcionesContainer.className = 'opciones-container';
+
+        if (pregunta.opciones) {
+            const opciones = typeof pregunta.opciones === 'string' ? JSON.parse(pregunta.opciones) : pregunta.opciones;
+            
+            // Normalizar a objeto si es array (aunque prompts.js usa objetos)
+            const opcionesObj = Array.isArray(opciones) 
+                ? opciones.reduce((acc, val, idx) => ({ ...acc, [String.fromCharCode(97+idx)]: val }), {}) 
+                : opciones;
+
+            for (const [key, value] of Object.entries(opcionesObj)) {
+                const label = document.createElement('label');
+                label.style.display = 'block';
+                label.style.margin = '5px 0';
+                label.style.cursor = 'pointer';
+
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = `pregunta_${pregunta.id}`;
+                input.value = key;
+                input.style.marginRight = '10px';
+
+                label.appendChild(input);
+                label.appendChild(document.createTextNode(`${key}) ${value}`));
+                opcionesContainer.appendChild(label);
+            }
+        }
+        card.appendChild(opcionesContainer);
+
+        // Botón Responder
+        const btnResponder = document.createElement('button');
+        btnResponder.textContent = 'Responder';
+        btnResponder.style.marginTop = '10px';
+        btnResponder.onclick = () => {
+            const seleccionado = card.querySelector(`input[name="pregunta_${pregunta.id}"]:checked`);
+            if (!seleccionado) {
+                alert('Por favor, selecciona una opción.');
+                return;
+            }
+
+            const respuestaUsuario = seleccionado.value;
+            const esCorrecta = respuestaUsuario === pregunta.correcta;
+            
+            // Feedback visual
+            const resultado = document.createElement('p');
+            resultado.style.fontWeight = 'bold';
+            resultado.style.marginTop = '10px';
+            
+            if (esCorrecta) {
+                resultado.textContent = '✅ ¡Correcto!';
+                resultado.style.color = 'green';
+            } else {
+                resultado.textContent = `❌ Incorrecto. La respuesta correcta era: ${pregunta.correcta}`;
+                resultado.style.color = 'red';
+            }
+
+            // Eliminar feedback anterior si existe
+            const feedbackAnterior = card.querySelector('.feedback-resultado');
+            if (feedbackAnterior) feedbackAnterior.remove();
+            
+            resultado.className = 'feedback-resultado';
+            card.appendChild(resultado);
+        };
+
+        card.appendChild(btnResponder);
         CONTENEDOR_PREGUNTAS.appendChild(card);
     });
 }
