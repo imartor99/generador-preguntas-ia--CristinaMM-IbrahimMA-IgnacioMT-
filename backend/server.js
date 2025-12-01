@@ -24,9 +24,15 @@ initDatabase();
 // Montar las rutas de la API en /api
 app.use("/api", apiRoutes);
 
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // Servir archivos estáticos del frontend (Tarea de Cristina)
-// Esto asume que el frontend estará en la carpeta 'frontend'
-app.use(express.static("frontend"));
+// Apunta a la carpeta 'frontend' que está al mismo nivel que 'backend'
+app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.listen(PORT, () => {
   console.log(`Servidor ejecutándose en puerto ${PORT}`);

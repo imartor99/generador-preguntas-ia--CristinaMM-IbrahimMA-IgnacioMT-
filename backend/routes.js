@@ -71,11 +71,11 @@ router.post("/generate", async (req, res) => {
     }
 
     // ⚠️ Llama a la lógica de Ibra para generar y guardar en BD
-    const preguntasGeneradas = await generarPreguntas(
-      tema,
+    const preguntasGeneradas = await generarPreguntas({
+      temaId: tema,
       numPreguntas,
       subtema
-    );
+    });
 
     res.status(200).json({
       success: true,

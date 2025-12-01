@@ -20,6 +20,22 @@ export function obtenerTemas() {
 }
 
 /**
+ * Tarea: Función para verificar el estado de Ollama
+ * Esto lo usará Nacho para el endpoint GET /api/health
+ */
+export async function checkOllamaHealth() {
+  try {
+    // Si no hay URL definida, asumimos desconectado
+    if (!OLLAMA_URL) return 'disconnected';
+    
+    const response = await fetch(`${OLLAMA_URL}/api/tags`); // Endpoint ligero de Ollama
+    return response.ok ? 'connected' : 'error';
+  } catch (error) {
+    return 'disconnected';
+  }
+}
+
+/**
  * Tarea: Función generarPreguntas
  * Conecta con Ollama, parsea la respuesta y guarda en BD.
  */
