@@ -17,6 +17,9 @@ COPY backend/ ./
 # Copia la carpeta frontend (necesaria porque el backend sirve los estáticos)
 COPY frontend/ ../frontend/
 
+# Crea el directorio db para la base de datos SQLite
+RUN mkdir -p db
+
 # Expone el puerto en el que corre la aplicación
 EXPOSE 3000
 
