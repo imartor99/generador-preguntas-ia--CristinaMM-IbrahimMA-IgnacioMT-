@@ -32,3 +32,5 @@ export function initDatabase() {
 db.exec(createTableQuery);
 
 console.log('Base de datos conectada y tabla "preguntas" asegurada.');
+
+}
