@@ -1,0 +1,25 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - AI_API_URL=http://ollama:11434
+      - AI_MODEL=mistral
+    depends_on:
+      - ollama
+    volumes:
+      - ./backend/db:/app/backend/db # Persistencia de la base de datos
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama # Persistencia de los modelos
+
+volumes:
+  ollama_data:
