@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  # ----------------------------------------------------
+  # 1. SERVICIO OLLAMA (IA)
+  # ----------------------------------------------------
+  ollama:
+    image: ollama/ollama
+    container_name: ollama-ia
+    restart: always
+    ports:
+      - "11434:11434" # Puerto por defecto para la API de Ollama
+    volumes:
+      - ollama_data:/root/.ollama
+    command: >
+      bash -c "ollama serve & 
+      sleep 10 && 
+      ollama pull mistral" # Descarga el modelo mistral automáticamente al iniciar
+    healthcheck: # Opcional: Define un chequeo de salud para saber cuándo está listo
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # ----------------------------------------------------
+  # 2. SERVICIO BACKEND (Node.js/Express)
+  # ----------------------------------------------------
+  backend:
+    build: 
+      context: ./backend # Indica que el Dockerfile para este servicio está dentro de la carpeta 'backend'
+      dockerfile: Dockerfile # Nombre por defecto del Dockerfile (necesitarás crearlo)
+    container_name: generador-backend
+    restart: always
+    ports:
+      - "3003:3003" # Puerto local:Puerto del contenedor (debe coincidir con el PORT del .env)
+    volumes:
+      - ./backend:/app # Mapea el código local al contenedor para desarrollo (opcional)
+    depends_on:
+      ollama:
+        condition: service_healthy # Asegura que Ollama esté funcionando antes de iniciar
+    environment:
+      # Pasa variables de entorno desde el host (usa un .env si es posible)
+      PORT: 3003
+      OLLAMA_URL: http://ollama:11434 # ¡IMPORTANTE! Usar el nombre del servicio (ollama) como host
+      DB_PATH: /app/db/preguntas.db
+      NODE_ENV: production
+      
+volumes:
+  ollama_data:
