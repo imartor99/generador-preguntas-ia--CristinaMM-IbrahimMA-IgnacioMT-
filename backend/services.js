@@ -26,12 +26,12 @@ export function obtenerTemas() {
 export async function checkOllamaHealth() {
   try {
     // Si no hay URL definida, asumimos desconectado
-    if (!OLLAMA_URL) return 'disconnected';
-    
+    if (!OLLAMA_URL) return "disconnected";
+
     const response = await fetch(`${OLLAMA_URL}/api/tags`); // Endpoint ligero de Ollama
-    return response.ok ? 'connected' : 'error';
+    return response.ok ? "connected" : "error";
   } catch (error) {
-    return 'disconnected';
+    return "disconnected";
   }
 }
 
@@ -193,24 +193,4 @@ export function limpiarTema(temaId) {
 
   // Devolvemos el número de preguntas eliminadas
   return info.changes;
-}
-
-/**
- * Tarea: Función checkOllamaHealth()
- * Verifica si Ollama está respondiendo.
- */
-export async function checkOllamaHealth() {
-  try {
-    // Hacemos una petición simple a la raíz de Ollama
-    const response = await fetch(`${OLLAMA_URL}/`);
-
-    if (response.ok) {
-      return "connected";
-    } else {
-      throw new Error(`Ollama respondió con estado: ${response.status}`);
-    }
-  } catch (error) {
-    console.error("[Ollama Service] Health Check falló:", error.message);
-    throw error; // Propagamos el error para que el endpoint lo capture
-  }
 }
