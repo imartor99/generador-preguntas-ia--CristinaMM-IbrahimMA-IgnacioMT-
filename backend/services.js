@@ -1,6 +1,6 @@
-import 'dotenv/config'; // Carga las variables de .env
-import { db } from './db.js';
-import { temas } from './prompts.js';
+import "dotenv/config"; // Carga las variables de .env
+import { db } from "./db.js";
+import { temas } from "./prompts.js";
 
 // Obtenemos la URL de Ollama y el modelo desde el .env
 const OLLAMA_URL = process.env.AI_API_URL;
@@ -12,7 +12,7 @@ const OLLAMA_MODEL = process.env.AI_MODEL;
  */
 export function obtenerTemas() {
   // Devolvemos solo la info pública, no el prompt interno
-  return temas.map(t => ({
+  return temas.map((t) => ({
     id: t.id,
     nombre: t.nombre,
     descripcion: t.descripcion,
@@ -39,17 +39,21 @@ export async function checkOllamaHealth() {
  * Tarea: Función generarPreguntas
  * Conecta con Ollama, parsea la respuesta y guarda en BD.
  */
-export async function generarPreguntas({ temaId, numPreguntas = 3, subtema = 'general' }) {
+export async function generarPreguntas({
+  temaId,
+  numPreguntas = 3,
+  subtema = "general",
+}) {
   // 1. Buscar el tema y el prompt
-  const tema = temas.find(t => t.id === temaId);
+  const tema = temas.find((t) => t.id === temaId);
   if (!tema) {
-    throw new Error('Tema no encontrado');
+    throw new Error("Tema no encontrado");
   }
 
   // 2. Construir el prompt final
   const promptFinal = tema.prompt
-    .replace('{num_preguntas}', numPreguntas)
-    .replace('{subtema}', subtema);
+    .replace("{num_preguntas}", numPreguntas)
+    .replace("{subtema}", subtema);
 
   console.log(`[Ollama Service] Enviando prompt para ${temaId}...`);
 
@@ -60,12 +64,12 @@ export async function generarPreguntas({ temaId, numPreguntas = 3, subtema = 'ge
 
     // 4. Conectar a Ollama (POST /api/generate)
     const response = await fetch(`${OLLAMA_URL}/api/generate`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         model: OLLAMA_MODEL,
         prompt: promptFinal,
-        format: 'json', // Pedimos formato JSON
+        format: "json", // Pedimos formato JSON
         stream: false, // Esperamos la respuesta completa
       }),
       signal: controller.signal, // Asignamos el controlador de timeout
@@ -86,13 +90,15 @@ export async function generarPreguntas({ temaId, numPreguntas = 3, subtema = 'ge
     const { preguntas } = contenidoParseado;
 
     if (!preguntas || !Array.isArray(preguntas)) {
-       throw new Error('Formato de respuesta JSON de Ollama inesperado.');
+      throw new Error("Formato de respuesta JSON de Ollama inesperado.");
     }
 
     // 5. Guardar en Base de Datos
-    console.log(`[Ollama Service] Guardando ${preguntas.length} preguntas en BD...`);
+    console.log(
+      `[Ollama Service] Guardando ${preguntas.length} preguntas en BD...`
+    );
     const stmt = db.prepare(
-      'INSERT INTO preguntas (tema, pregunta, opciones, correcta) VALUES (?, ?, ?, ?)'
+      "INSERT INTO preguntas (tema, pregunta, opciones, correcta) VALUES (?, ?, ?, ?)"
     );
 
     const preguntasGuardadas = [];
@@ -107,20 +113,26 @@ export async function generarPreguntas({ temaId, numPreguntas = 3, subtema = 'ge
         tema: temaId,
         pregunta: p.pregunta,
         opciones: p.opciones,
-        correcta: p.correcta
+        correcta: p.correcta,
       });
     }
 
     return preguntasGuardadas;
-
   } catch (error) {
     // 6. Manejo de Errores si ollama no responde (Timeout y conexión)
-    if (error.name === 'AbortError') {
-      console.error('[Ollama Service] Error: Timeout de 60s alcanzado.');
-      throw new Error('La solicitud a Ollama ha tardado demasiado (timeout 60s).');
+    if (error.name === "AbortError") {
+      console.error("[Ollama Service] Error: Timeout de 60s alcanzado.");
+      throw new Error(
+        "La solicitud a Ollama ha tardado demasiado (timeout 60s)."
+      );
     }
-    console.error('[Ollama Service] Error conectando con Ollama:', error.message);
-    throw new Error(`No se pudo conectar con Ollama o procesar la respuesta: ${error.message}`);
+    console.error(
+      "[Ollama Service] Error conectando con Ollama:",
+      error.message
+    );
+    throw new Error(
+      `No se pudo conectar con Ollama o procesar la respuesta: ${error.message}`
+    );
   }
 }
 
@@ -129,11 +141,11 @@ export async function generarPreguntas({ temaId, numPreguntas = 3, subtema = 'ge
  * Busca en BD todas las preguntas (o filtradas por tema).
  */
 export function obtenerPreguntas({ temaId } = {}) {
-  let query = 'SELECT * FROM preguntas';
+  let query = "SELECT * FROM preguntas";
   const params = [];
 
   if (temaId) {
-    query += ' WHERE tema = ?';
+    query += " WHERE tema = ?";
     params.push(temaId);
   }
 
@@ -141,9 +153,9 @@ export function obtenerPreguntas({ temaId } = {}) {
   const filas = stmt.all(params);
 
   // Convertimos el string JSON de 'opciones' de nuevo a un objeto
-  return filas.map(fila => ({
+  return filas.map((fila) => ({
     ...fila,
-    opciones: JSON.parse(fila.opciones)
+    opciones: JSON.parse(fila.opciones),
   }));
 }
 
@@ -152,20 +164,20 @@ export function obtenerPreguntas({ temaId } = {}) {
  * Esto lo usará Nacho para el endpoint GET /api/preguntas/:id
  */
 export function obtenerPreguntaPorId(id) {
-    const stmt = db.prepare('SELECT * FROM preguntas WHERE id = ?');
-    const fila = stmt.get(id);
+  const stmt = db.prepare("SELECT * FROM preguntas WHERE id = ?");
+  const fila = stmt.get(id);
 
-    if (fila) {
-        fila.opciones = JSON.parse(fila.opciones);
-    }
-    return fila; // Devuelve la fila o 'undefined' si no se encuentra
+  if (fila) {
+    fila.opciones = JSON.parse(fila.opciones);
+  }
+  return fila; // Devuelve la fila o 'undefined' si no se encuentra
 }
 
 /**
  * Tarea: Función eliminarPregunta(id)
  */
 export function eliminarPregunta(id) {
-  const stmt = db.prepare('DELETE FROM preguntas WHERE id = ?');
+  const stmt = db.prepare("DELETE FROM preguntas WHERE id = ?");
   const info = stmt.run(id);
 
   // info.changes nos dice cuántas filas se borraron (debería ser 1)
@@ -176,9 +188,29 @@ export function eliminarPregunta(id) {
  * Tarea: Función limpiarTema(tema)
  */
 export function limpiarTema(temaId) {
-  const stmt = db.prepare('DELETE FROM preguntas WHERE tema = ?');
+  const stmt = db.prepare("DELETE FROM preguntas WHERE tema = ?");
   const info = stmt.run(temaId);
 
   // Devolvemos el número de preguntas eliminadas
   return info.changes;
+}
+
+/**
+ * Tarea: Función checkOllamaHealth()
+ * Verifica si Ollama está respondiendo.
+ */
+export async function checkOllamaHealth() {
+  try {
+    // Hacemos una petición simple a la raíz de Ollama
+    const response = await fetch(`${OLLAMA_URL}/`);
+
+    if (response.ok) {
+      return "connected";
+    } else {
+      throw new Error(`Ollama respondió con estado: ${response.status}`);
+    }
+  } catch (error) {
+    console.error("[Ollama Service] Health Check falló:", error.message);
+    throw error; // Propagamos el error para que el endpoint lo capture
+  }
 }

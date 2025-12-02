@@ -1,19 +1,9 @@
 import Database from 'better-sqlite3';
 import path from 'path';
-import { fileURLToPath } from 'url';
-import fs from 'fs';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-// Asegurar que el directorio 'db' existe
-const dbDir = path.join(__dirname, 'db');
-if (!fs.existsSync(dbDir)) {
-  fs.mkdirSync(dbDir, { recursive: true });
-}
 
 // Define la ruta a la base de datos.
-const dbPath = path.join(dbDir, 'preguntas.db');
+// 'db' es la carpeta que creaste dentro de 'backend'.
+const dbPath = path.resolve('backend', 'db', 'preguntas.db');
 
 // Inicializa la base de datos
 // verbose: console.log nos mostrará las consultas SQL que se ejecuten
@@ -38,8 +28,7 @@ export function initDatabase() {
   );
   `;
 
-  // Ejecutamos la consulta para crear la tabla
-  db.exec(createTableQuery);
+// Ejecutamos la consulta para crear la tabla
+db.exec(createTableQuery);
 
-  console.log('Base de datos conectada y tabla "preguntas" asegurada.');
-}
+console.log('Base de datos conectada y tabla "preguntas" asegurada.');
