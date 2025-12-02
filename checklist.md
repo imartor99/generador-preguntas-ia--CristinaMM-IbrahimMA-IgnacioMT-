@@ -24,17 +24,17 @@
 | ☐ Linkar `style.css` y `main.js` en `index.html` | | Cristina | ✅ |
 | **2. Backend - Implementación** | | | |
 | **2.1 Base de Datos** | | **Ibra** | |
-| ☐ Crear carpeta `backend/db/` | | Ibra | |
-| ☐ Implementar `backend/db.js` para inicializar SQLite3 y generar las tablas automáticamente | | Ibra | |
+| ☐ Crear carpeta `backend/db/` | | Ibra | ✅ |
+| ☐ Implementar `backend/db.js` para inicializar SQLite3 y generar las tablas automáticamente | | Ibra | ✅ |
 | **2.2 Temas y Prompts** | | **Ibra** | |
-| ☐ Implementar `backend/prompts.js` con 3 o 4 temas, incluyendo `id`, `nombre`, `descripcion` y el `prompt` (con placeholders) | | Ibra | |
+| ☐ Implementar `backend/prompts.js` con 3 o 4 temas, incluyendo `id`, `nombre`, `descripcion` y el `prompt` (con placeholders) | | Ibra | ✅ |
 | **2.3 Lógica Principal (*Services*)** | | **Ibra** | |
-| ☐ Implementar `backend/services.js` (Archivo más importante) | | Ibra | |
-| ☐ Función `generarPreguntas`: Incluye conexión a Ollama (POST a `/api/generate`), parseo JSON y guardado en BD | | Ibra | |
-| ☐ Función `obtenerPreguntas(tema)`: Buscar en BD preguntas del tema | | Ibra | |
-| ☐ Función `eliminarPregunta(id)`: Eliminar de BD por ID | | Ibra | |
-| ☐ Función `limpiarTema(tema)`: Eliminar todas las preguntas de un tema | | Ibra | |
-| ☐ Manejo de errores: Si Ollama no responde y *Timeout* (> 60s) | | Ibra | |
+| ☐ Implementar `backend/services.js` (Archivo más importante) | | Ibra | ✅ |
+| ☐ Función `generarPreguntas`: Incluye conexión a Ollama (POST a `/api/generate`), parseo JSON y guardado en BD | | Ibra | ✅ |
+| ☐ Función `obtenerPreguntas(tema)`: Buscar en BD preguntas del tema | | Ibra | ✅ |
+| ☐ Función `eliminarPregunta(id)`: Eliminar de BD por ID | | Ibra | ✅ |
+| ☐ Función `limpiarTema(tema)`: Eliminar todas las preguntas de un tema | | Ibra | ✅ |
+| ☐ Manejo de errores: Si Ollama no responde y *Timeout* (> 60s) | | Ibra | ✅ |
 | **2.4 Endpoints de la API (*Routes*)** | | **Nacho** | |
 | ☐ Implementar `backend/routes.js` e importar Express Router | | Nacho | ✅ |
 | ☐ `POST /api/generate` | | Nacho | ✅ |
