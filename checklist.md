@@ -75,9 +75,9 @@
 | ☐ Verificar que `docker compose up --build` levanta perfectamente | | Común | ✅ |
 | ☐ Verificar acceso a servicios (Backend y Ollama) | | Común | ✅ |
 | **6. Documentación y Entrega (Común)** | | | |
-| ☐ Crear `README.md` completo (Descripción, Requisitos, Instalación, Estructura, API Endpoints, etc.) | | Común | |
-| ☐ `checklist.md` completado | | Común | |
+| ☐ Crear `README.md` completo (Descripción, Requisitos, Instalación, Estructura, API Endpoints, etc.) | | Común | ✅ |
+| ☐ `checklist.md` completado | | Común | ✅ |
 | ☐ Asegurar commits incrementales, descriptivos y con co-autoría | | Común | ✅ |
 | ☐ Crear Pull Request (PR) con título y descripción requeridos | | Común | |
-| ☐ **Verificar que el `.env` NO está versionado** (solo `.env.example`) | | Común | |
+| ☐ **Verificar que el `.env` NO está versionado** (solo `.env.example`) | | Común | ✅ |
 | ☐ Exposición en clase del proyecto funcionando | | Común | |
