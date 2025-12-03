@@ -49,35 +49,35 @@
 | ☐ Implementar `backend/server.js` (cargar `.env`, configurar CORS, montar rutas en `/api`, servir estáticos) | | Nacho | ✅ |
 | **3. Frontend - JavaScript Vanilla** | | | |
 | **3.1 Estructura HTML** | | **Cristina** | |
-| ☐ Completar `frontend/index.html` con selector de tema, inputs, botones, contenedor, carga | | Cristina | |
+| ☐ Completar `frontend/index.html` con selector de tema, inputs, botones, contenedor, carga | | Cristina | ✅ |
 | **3.2 Estilos CSS** | | **Cristina** | |
-| ☐ Implementar `frontend/style.css` (CSS vanilla, responsive, estilos para tarjetas, carga, error) | | Cristina | |
+| ☐ Implementar `frontend/style.css` (CSS vanilla, responsive, estilos para tarjetas, carga, error) | | Cristina | ✅ |
 | **3.3 Lógica JavaScript** | | **Cristina** | |
-| ☐ Implementar `frontend/main.js` | | Cristina | |
-| ☐ Función `cargarTemas()` (GET a `/api/temas` y rellenar selector) | | Cristina | |
-| ☐ Función `generarPreguntas()` (Validaciones, POST, manejar carga/error) | | Cristina | |
-| ☐ Función `mostrarPreguntas()` (Crear elementos HTML, añadir botón "Eliminar") | | Cristina | |
-| ☐ Función `eliminarPregunta(id)` (DELETE a `/api/preguntas/{id}`, recargar lista) | | Cristina | |
-| ☐ Función `limpiar()` (Resetear inputs, DELETE a `/api/preguntas/tema/{tema}` si es necesario) | | Cristina | |
-| ☐ Configurar *Event Listeners* (Click Generar, Click Limpiar, Change tema, Input numPreguntas) | | Cristina | |
+| ☐ Implementar `frontend/main.js` | | Cristina | ✅ |
+| ☐ Función `cargarTemas()` (GET a `/api/temas` y rellenar selector) | | Cristina | ✅ |
+| ☐ Función `generarPreguntas()` (Validaciones, POST, manejar carga/error) | | Cristina | ✅ |
+| ☐ Función `mostrarPreguntas()` (Crear elementos HTML, añadir botón "Eliminar") | | Cristina | ✅ |
+| ☐ Función `eliminarPregunta(id)` (DELETE a `/api/preguntas/{id}`, recargar lista) | | Cristina | ✅ |
+| ☐ Función `limpiar()` (Resetear inputs, DELETE a `/api/preguntas/tema/{tema}` si es necesario) | | Cristina | ✅ |
+| ☐ Configurar *Event Listeners* (Click Generar, Click Limpiar, Change tema, Input numPreguntas) | | Cristina | ✅ |
 | **4. Testing y Validación** | | | |
 | **4.1 Tests de Endpoints** | | **Cristina** | |
-| ☐ Crear `validacion.http` en la raíz con tests para todos los *endpoints* | | Cristina | |
+| ☐ Crear `validacion.http` en la raíz con tests para todos los *endpoints* | | Cristina | ✅ |
 | **4.2 Pruebas Manuales y Calidad** | | **Común** | |
-| ☐ Backend levanta sin errores y Ollama responde | | Común | |
-| ☐ Frontend carga y Selector de temas funciona | | Común | |
-| ☐ Generar preguntas funciona para **todos los temas** | | Común | |
-| ☐ Las preguntas se guardan en BD y se muestran en frontend | | Común | |
-| ☐ Eliminar pregunta y Limpiar tema funcionan | | Común | |
-| ☐ Validaciones: bloquea *numPreguntas* fuera de rango y envío sin datos | | Común | |
+| ☐ Backend levanta sin errores y Ollama responde | | Común | ✅ |
+| ☐ Frontend carga y Selector de temas funciona | | Común | ✅ |
+| ☐ Generar preguntas funciona para **todos los temas** | | Común | ✅ |
+| ☐ Las preguntas se guardan en BD y se muestran en frontend | | Común | ✅ |
+| ☐ Eliminar pregunta y Limpiar tema funcionan | | Común | ✅ |
+| ☐ Validaciones: bloquea *numPreguntas* fuera de rango y envío sin datos | | Común | ✅ |
 | **5. Dockerización (Común)** | | | |
-| ☐ Crear `docker-compose.yml` en raíz que orqueste servicios | | Común | |
-| ☐ Verificar que `docker compose up --build` levanta perfectamente | | Común | |
-| ☐ Verificar acceso a servicios (Backend y Ollama) | | Común | |
+| ☐ Crear `docker-compose.yml` en raíz que orqueste servicios | | Común | ✅ |
+| ☐ Verificar que `docker compose up --build` levanta perfectamente | | Común | ✅ |
+| ☐ Verificar acceso a servicios (Backend y Ollama) | | Común | ✅ |
 | **6. Documentación y Entrega (Común)** | | | |
 | ☐ Crear `README.md` completo (Descripción, Requisitos, Instalación, Estructura, API Endpoints, etc.) | | Común | |
 | ☐ `checklist.md` completado | | Común | |
-| ☐ Asegurar commits incrementales, descriptivos y con co-autoría | | Común | |
+| ☐ Asegurar commits incrementales, descriptivos y con co-autoría | | Común | ✅ |
 | ☐ Crear Pull Request (PR) con título y descripción requeridos | | Común | |
 | ☐ **Verificar que el `.env` NO está versionado** (solo `.env.example`) | | Común | |
 | ☐ Exposición en clase del proyecto funcionando | | Común | |

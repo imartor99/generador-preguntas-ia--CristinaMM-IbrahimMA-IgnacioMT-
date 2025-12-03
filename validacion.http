@@ -1,0 +1,115 @@
+@baseUrl = http://localhost:3000/api
+
+### Obtener la lista de temas
+# @name getTemas
+GET {{baseUrl}}/temas
+
+> {%
+// Test 1: Comprobar el código de estado y el tipo de respuesta
+client.test('Verificar status 200 y que la respuesta es un array', function() {
+    client.assert(response.status === 200, 'El status no es 200 (OK)');
+    client.assert(Array.isArray(response.body), 'El cuerpo de respuesta no es un array');
+});
+%}
+
+### Verificar estado de Ollama
+# @name healthCheck
+GET {{baseUrl}}/health
+
+> {%
+// Test 2: Comprobar la salud del servicio
+client.test('Verificar status 200 y estado "ok"', function() {
+    client.assert(response.status === 200, 'El status no es 200. Ollama podría estar caído.');
+    client.assert(response.body.status === 'ok', 'El servicio no reporta estado "ok"');
+});
+%}
+
+### Generar preguntas
+# @name generateQuestions
+POST {{baseUrl}}/generate
+Content-Type: application/json
+
+{"tema":"javascript","numPreguntas":3,"subtema":"funciones"}
+
+
+> {%
+// Test 3: Guardar el ID de la primera pregunta para tests posteriores
+client.global.set('testTema', 'javascript');
+if (response.body && response.body.preguntas && response.body.preguntas.length > 0) {
+    client.global.set('firstQId', response.body.preguntas[0].id);
+}
+
+client.test('Verificar status 200, success true y que tiene 3 preguntas', function() {
+    client.assert(response.status === 200, 'Error al generar preguntas');
+    client.assert(response.body.success === true, 'La respuesta no indica éxito');
+    client.assert(Array.isArray(response.body.preguntas), 'No devolvió un array de preguntas');
+    client.assert(response.body.preguntas.length === 3, 'El número de preguntas generadas no es 3');
+});
+%}
+
+### Obtener preguntas
+# @name getAllQuestions
+GET {{baseUrl}}/preguntas
+
+> {%
+// Test 4: Comprobar que se pueden obtener todas las preguntas
+client.test('Verificar status 200 y que la lista no está vacía', function() {
+    client.assert(response.status === 200, 'Error al obtener todas las preguntas');
+    client.assert(Array.isArray(response.body), 'El cuerpo no es un array');
+    client.assert(response.body.length > 0, 'La lista de preguntas está vacía');
+});
+%}
+
+### Obtener preguntas por tema
+# @name getQuestionsByTema
+GET {{baseUrl}}/preguntas?tema={{testTema}}
+
+> {%
+// Test 5: Comprobar que el filtro por tema funciona correctamente
+client.test('Verificar status 200 y que todas las preguntas son del tema correcto', function() {
+    client.assert(response.status === 200, 'Error al filtrar por tema');
+    client.assert(response.body.every(q => q.tema === client.global.get('testTema')), 'Una pregunta tiene un tema incorrecto');
+});
+%}
+
+### Eliminar pregunta por ID (Usando el ID de la pregunta generada arriba)
+# @name deleteQuestionById
+DELETE {{baseUrl}}/preguntas/{{firstQId}}
+
+> {%
+// Test 6: Comprobar que la eliminación por ID es exitosa
+client.test('Verificar status 200 y success true al eliminar por ID', function() {
+    client.assert(response.status === 200, 'Error al eliminar la pregunta por ID');
+    client.assert(response.body.success === true, 'La eliminación no fue exitosa');
+});
+%}
+
+### Eliminar todas las preguntas de un tema
+# @name deleteAllByTema
+DELETE {{baseUrl}}/preguntas/tema/{{testTema}}
+
+> {%
+// Test 7: Comprobar que la eliminación por tema es exitosa
+client.test('Verificar status 200 y success true al eliminar por tema', function() {
+    client.assert(response.status === 200, 'Error al eliminar las preguntas por tema');
+    client.assert(response.body.success === true, 'La eliminación no fue exitosa');
+});
+%}
+
+
+### Eliminar todas las preguntas
+# @name deleteAllQuestions
+DELETE {{baseUrl}}/preguntas
+
+> {%
+// Test 8: Comprobar que la eliminación total es exitosa
+client.test('Verificar status 204 o 200 al eliminar todas las preguntas', function() {
+    client.assert(response.status === 204 || response.status === 200, 'Error al eliminar todas las preguntas');
+});
+// Después de este test, la base de datos debería estar vacía.
+%}
+
+
+
+
+

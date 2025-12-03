@@ -194,3 +194,15 @@ export function limpiarTema(temaId) {
   // Devolvemos el número de preguntas eliminadas
   return info.changes;
 }
+
+/**
+ * Tarea: Función eliminarTodasLasPreguntas()
+ * Elimina todas las preguntas de la base de datos
+ */
+export function eliminarTodasLasPreguntas() {
+  const stmt = db.prepare("DELETE FROM preguntas");
+  const info = stmt.run();
+
+  // Devolvemos el número de preguntas eliminadas
+  return info.changes;
+}
