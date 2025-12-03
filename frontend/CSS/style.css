@@ -1,0 +1,277 @@
+/* --- 1. Variables y Estilos Generales (Futurista/Dark Mode) --- */
+:root {
+    --color-primary: #ffe100; /* Amarillo brillante (Neón) */
+    --color-secondary: #4a5468; /* Gris oscuro para deshabilitados */
+    --color-card-bg: #272740; /* Fondo de tarjetas con profundidad */
+    --color-text: #e0e0e0; /* Texto claro */
+    --color-error: #d400ff; /* Morado Neón */
+    --color-success: #39ff14; /* Verde Neón */
+    --font-clean: 'Consolas', 'Courier New', monospace;
+    --shadow-neon: 0 0 10px #ffef75c1; /* Sombra Neón */
+}
+
+body {
+    background-image: url('img/noche-estrellas.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: var(--font-clean);
+    color: var(--color-text);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+/* --- 2. Contenedor Principal (Panel de Control) --- */
+#app {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: var(--color-card-bg);
+    border-radius: 12px;
+    border: 1px solid var(--color-primary); /* Borde principal neón */
+    box-shadow: var(--shadow-neon);
+    transition: box-shadow 0.5s ease-in-out;
+}
+
+h1 {
+    text-align: center;
+    color: var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
+    box-shadow: 0 1px 0 var(--color-primary); /* Efecto de línea brillante */
+    padding-bottom: 15px;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* --- 3. Estilos de Formulario (Select, Input) --- */
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+#selectorTemas,
+#numPreguntas {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    background-color: #1a1a2e; /* Interior oscuro */
+    color: var(--color-text);
+    border: 1px solid var(--color-secondary);
+    border-radius: 6px;
+    box-sizing: border-box;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+#selectorTemas:focus,
+#numPreguntas:focus {
+    border-color: var(--color-primary);
+    box-shadow: 0 0 8px rgba(0, 224, 255, 0.8);
+    outline: none;
+}
+
+/* Validación visual: input números */
+#numPreguntas:invalid {
+    border: 2px solid var(--color-error);
+    box-shadow: 0 0 5px rgba(255, 82, 119, 0.8);
+}
+
+/* --- 4. Estilos de Botones (Glow Effect) --- */
+
+button {
+    padding: 10px 25px;
+    margin-right: 15px;
+    border: 2px solid var(--color-primary);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: var(--font-clean);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.1s, color 0.3s;
+}
+
+/* Botón Generar (Primario) */
+#btnGenerar {
+    background-color: transparent;
+    color: var(--color-primary);
+    box-shadow: 0 0 5px #ffe100;
+}
+
+#btnGenerar:hover:not(:disabled) {
+    background-color: var(--color-primary);
+    color: var(--color-card-bg);
+    box-shadow: 0 0 15px var(--color-primary); /* Brillo intenso */
+    transform: translateY(-2px);
+}
+
+/* Botón Limpiar (Secundario/Acción de Riesgo) */
+#btnLimpiar {
+    background-color: transparent;
+    color: var(--color-error);
+    border-color: var(--color-error);
+}
+
+#btnLimpiar:hover:not(:disabled) {
+    background-color: var(--color-error);
+    color: var(--color-background);
+    box-shadow: 0 0 15px var(--color-error);
+}
+
+#btnLimpiar:active:not(:disabled) {
+    transform: translateY(1px);
+}
+
+
+/* Estado Disabled */
+button:disabled {
+    background-color: var(--color-secondary);
+    border-color: var(--color-secondary);
+    color: #a0a0a0;
+    opacity: 0.7;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+
+/* --- 5. Contenedor de Preguntas (Tarjetas / Datos Escaneados) --- */
+
+#contenedorPreguntas {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--color-secondary);
+}
+
+.pregunta-card {
+    background-color: #2e2e4e; /* Color de tarjeta ligeramente diferente */
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 224, 255, 0.3); /* Sombra suave neón */
+    position: relative;
+    border-left: 3px solid var(--color-primary);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.pregunta-card:hover {
+    box-shadow: 0 0 10px var(--color-primary);
+}
+
+.pregunta-card h4 {
+    color: var(--color-success); /* Éxito/Dato confirmado */
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    text-transform: uppercase;
+}
+
+.pregunta-card p {
+    color: #cccccc;
+    margin: 0 0 10px 0;
+}
+
+/* Botón Eliminar dentro de la tarjeta */
+.pregunta-card button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: transparent;
+    color: var(--color-error);
+    border-color: var(--color-error);
+    padding: 5px 10px;
+    font-size: 0.8em;
+}
+
+.pregunta-card button:hover {
+    background-color: var(--color-error);
+    color: var(--color-card-bg);
+}
+
+
+/* --- 6. Indicador de Carga (Spinner) --- */
+
+#loadingIndicator {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 1.1em;
+    color: var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Estilos del Spinner CSS puro (más futurista) */
+.spinner {
+    border: 4px solid rgba(0, 224, 255, 0.2);
+    border-top: 4px solid var(--color-primary);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    animation: spin 1s linear infinite;
+    margin-right: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* --- 7. Mensajes de Sistema y Error (Alertas de Consola) --- */
+
+#mensajeSistema {
+    padding: 10px 15px;
+    margin: 15px 0;
+    border-radius: 6px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    font-family: var(--font-clean);
+}
+
+/* Mensaje de información/éxito */
+.info-message {
+    background-color: rgba(57, 255, 20, 0.1); 
+    color: var(--color-success); 
+    border-color: var(--color-success);
+    box-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+}
+
+/* Mensaje de error */
+.error-message {
+    background-color: rgba(255, 82, 119, 0.1); 
+    color: var(--color-error); 
+    border-color: var(--color-error);
+    box-shadow: 0 0 5px rgba(255, 82, 119, 0.5);
+}
+
+/* --- 8. Responsive Design (Media Query) --- */
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+    
+    #app {
+        padding: 20px 15px;
+        box-shadow: none; 
+        border-radius: 0;
+        border: none;
+    }
+
+    button {
+        display: block;
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .pregunta-card button {
+        width: auto; 
+    }
+}

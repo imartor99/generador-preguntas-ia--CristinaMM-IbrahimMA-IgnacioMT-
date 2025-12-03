@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Preguntas IA</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+
+<body>
+
+
+    <div id="app">
+
+        <h1>Generador de Preguntas</h1>
+
+        <!-- Contenedor para el mensaje del sistema (añadido en JS, pero importante para CSS) -->
+        <div id="mensajeSistema" style="display: none;"></div>
+
+        <div>
+            <!-- Selector de tema (dropdown con los 3 temas) -->
+            <label for="selectorTemas">Selecciona un tema:</label>
+            <select id="selectorTemas" name="opciones">
+                <!-- El JS debe rellenar esto, pero se deja el placeholder -->
+                <option value="" disabled selected>Selecciona un tema</option>
+            </select>
+        </div>
+        <br>
+
+
+
+
+        <div>
+            <label for="numPreguntas">Número de preguntas (1-5):</label>
+            <input type="number" id="numPreguntas" min="1" max="5" value="3" required>
+        </div>
+        <br>
+
+
+
+
+        <div>
+            <button id="btnGenerar">Generar Preguntas</button>
+            <button id="btnLimpiar">Limpiar</button>
+        </div>
+        <br>
+
+
+        <!-- Indicador de carga spinner) -->
+        <div id="loadingIndicator" style="display: none;">
+            <div class="spinner"></div>
+            <span>Generando preguntas...</span>
+        </div>
+
+
+
+
+        <div id="contenedorPreguntas">
+            <p>Las preguntas aparecerán aquí.</p>
+        </div>
+
+
+
+
+        <script type="module" src="JS/main.js"></script>
+
+    </div>
+</body>
+
+</html>
